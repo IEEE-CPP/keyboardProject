@@ -1,0 +1,284 @@
+units:
+  # Proxy Spacing Variables
+  kx: cx
+  ky: cy
+  # Padding Variables
+  px: kx + 7
+  py: ky + 7
+  # --- Microcontroller pad params
+  mcu_w: 40 # pad width
+  mcu_h: 80 # pad height
+  mcu_dx: px * .85 # how far to shove the pad to the right from inner_home
+
+points:
+  zones:
+    main:
+      anchor:
+        shift: [100, -100]
+      key:
+        padding: 1ky
+        spread: 1kx
+      columns:
+        outer:
+          key.column_net: P21
+          rows.mod.skip: true
+        pinky:
+          key.column_net: P20
+          rows.mod.skip: true
+        ring:
+          key.column_net: P19
+          key.stagger: 4
+        middle:
+          key.column_net: P18
+          key.stagger: 2.5
+        index:
+          key.column_net: P15
+          key.stagger: -2.5
+        inner:
+          key.column_net: P14
+          key.stagger: -2.5
+          rows.mod.skip: true
+      rows:
+        mod:
+          row_net: P8
+        bottom:
+          row_net: P7
+        home:
+          row_net: P6
+        top:
+          row_net: P5
+        num:
+          row_net: P4
+    thumb:
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        ref: main_inner_mod
+        shift: [2, -2]
+      columns:
+        layer:
+          key:
+            column_net: P16
+            splay: -30
+            shift: [2, -2]
+        space:
+          key:
+            column_net: P10
+            splay: -15
+            shift: [5, -5]
+        extra:
+          key:
+            column_net: P9
+            splay: -15
+            shift: [8.7, -6]
+      rows:
+        cluster:
+          row_net: P4
+  mirror:
+    ref: main_inner_num
+    distance: 100
+outlines:
+  left_raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+    - what: rectangle
+      where:
+        ref: main_inner_home
+        shift: [mcu_dx, 0]
+      size: [mcu_w, mcu_h]
+  right_raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+    - what: rectangle
+      where:
+        ref: mirror_main_inner_home
+        shift: [mcu_dx, 0]
+      size: [mcu_w, mcu_h]
+  keys:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [kx-0.5, ky-0.5]
+  combo_left:
+    - name: left_raw
+    - operation: subtract
+      name: keys
+  combo_right:
+    - name: right_raw
+    - operation: subtract
+      name: keys
+
+pcbs:
+  left_board:
+    outlines:
+      - outline: left_raw
+    footprints:
+      chod_hotswap:
+        what: choc
+        where: true
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      promicro:
+        what: promicro
+        params:
+          orientation: "down"
+        where:
+          ref: main_inner_home
+          shift: [mcu_dx, 20.5]
+          rotate: -90
+      oled:
+        what: oled
+        params:
+          side: "F"
+          SDA: P2
+          SCL: P3
+          VCC: VCC
+          GND: GND
+        where:
+          ref: main_inner_top
+          shift: [mcu_dx+6, -20]
+          rotate: -90
+      reset:
+        what: button
+        params:
+          from: GND
+          to: RST
+        where:
+          ref: main_inner_num
+          shift: [mcu_dx, -50]
+          rotate: -90
+      trrs:
+        what: trrs
+        params:
+          reverse: false
+          symmetric: true
+          A: VCC
+          B: GND
+          C: GND
+          D: P0
+        where:
+          ref: main_inner_top
+          shift: [mcu_dx+16.5, 21]
+          rotate: 0
+
+      # ESD PROTECTION FOR TRRS
+      # TVS diode array or individual diodes
+      esd_data:
+        what: diode # Use TVS diode like PRTR5V0U2X or similar
+        params:
+          from: P0
+          to: GND
+        where:
+          ref: main_inner_top
+          shift: [mcu_dx+16.5, 3]
+          rotate: 90
+
+      esd_vcc:
+        what: diode # TVS diode for VCC line
+        params:
+          from: VCC
+          to: GND
+        where:
+          ref: main_inner_top
+          shift: [mcu_dx+12.5, 3]
+          rotate: 90
+  right_board:
+    outlines:
+      - outline: right_raw
+    footprints:
+      chod_hotswap:
+        what: choc
+        where: true
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      promicro:
+        what: promicro
+        params:
+          orientation: "miro"
+        where:
+          ref: mirror_main_inner_home
+          shift: [mcu_dx, 20.5]
+          rotate: 90
+      oled:
+        what: oled
+        params:
+          side: "F"
+          SDA: P2
+          SCL: P3
+          VCC: VCC
+          GND: GND
+        where:
+          ref: mirror_main_inner_top
+          shift: [mcu_dx+6, -20]
+          rotate: -90
+      reset:
+        what: button
+        params:
+          from: GND
+          to: RST
+        where:
+          ref: mirror_main_inner_num
+          shift: [mcu_dx, -50]
+          rotate: -90
+      trrs:
+        what: trrs
+        params:
+          reverse: false
+          symmetric: true
+          A: VCC
+          B: GND
+          C: GND
+          D: P0
+        where:
+          ref: mirror_main_inner_top
+          shift: [mcu_dx+12.5, 21]
+          rotate: 0
+
+      # ESD PROTECTION FOR TRRS
+      # TVS diode array or individual diodes
+      esd_data:
+        what: diode # Use TVS diode like PRTR5V0U2X or similar
+        params:
+          from: P0
+          to: GND
+        where:
+          ref: mirror_main_inner_top
+          shift: [mcu_dx+12.5, 3]
+          rotate: 90
+
+      esd_vcc:
+        what: diode # TVS diode for VCC line
+        params:
+          from: VCC
+          to: GND
+        where:
+          ref: mirror_main_inner_top
+          shift: [mcu_dx+16.5, 3]
+          rotate: 90
