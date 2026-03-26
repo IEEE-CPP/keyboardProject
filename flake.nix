@@ -34,6 +34,22 @@
               kicad
               ergogen
             ];
+            commands = [
+              {
+                name = "generate";
+                help = "Run ergogen and move output to kicad folder";
+                command = ''
+                  CONFIG="splitKeyboard/ergogen/"
+                  OUTPUT="splitKeyboard/ergogen/output"
+                  KICAD_DIR="splitKeyboard/kicad"
+
+                  ergogen "$CONFIG" --output "$OUTPUT"
+                  rm -f "$KICAD_DIR/left_board.kicad_pcb" "$KICAD_DIR/right_board.kicad_pcb"
+                  mv "$OUTPUT/pcbs/left_board.kicad_pcb" "$KICAD_DIR/"
+                  mv "$OUTPUT/pcbs/right_board.kicad_pcb" "$KICAD_DIR/"
+                '';
+              }
+            ];
           };
         };
 
