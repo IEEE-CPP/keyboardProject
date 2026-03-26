@@ -5325,6 +5325,96 @@
     )
   
     
+
+  (footprint "ceoloide:mounting_hole_npth"
+    (layer "F.Cu")
+    (at 388 24 0)
+    (property "Reference" "MH1"
+      (at 0 2.55 0)
+      (layer "F.SilkS")
+      hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad "" np_thru_hole circle
+      (at 0 0 0)
+      (size 2.2 2.2)
+      (drill 2.2)
+      (layers "*.Cu" "*.Mask")
+    )
+  )
+  
+
+  (footprint "ceoloide:mounting_hole_npth"
+    (layer "F.Cu")
+    (at 388 91 0)
+    (property "Reference" "MH2"
+      (at 0 2.55 0)
+      (layer "F.SilkS")
+      hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad "" np_thru_hole circle
+      (at 0 0 0)
+      (size 2.2 2.2)
+      (drill 2.2)
+      (layers "*.Cu" "*.Mask")
+    )
+  )
+  
+
+  (footprint "ceoloide:mounting_hole_npth"
+    (layer "F.Cu")
+    (at 268 94.5 0)
+    (property "Reference" "MH3"
+      (at 0 2.55 0)
+      (layer "F.SilkS")
+      hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad "" np_thru_hole circle
+      (at 0 0 0)
+      (size 2.2 2.2)
+      (drill 2.2)
+      (layers "*.Cu" "*.Mask")
+    )
+  )
+  
+
+  (footprint "ceoloide:mounting_hole_npth"
+    (layer "F.Cu")
+    (at 268 68.5 0)
+    (property "Reference" "MH4"
+      (at 0 2.55 0)
+      (layer "F.SilkS")
+      hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad "" np_thru_hole circle
+      (at 0 0 0)
+      (size 2.2 2.2)
+      (drill 2.2)
+      (layers "*.Cu" "*.Mask")
+    )
+  )
+  
+
+  (footprint "ceoloide:mounting_hole_npth"
+    (layer "F.Cu")
+    (at 269 43.5 0)
+    (property "Reference" "MH5"
+      (at 0 2.55 0)
+      (layer "F.SilkS")
+      hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (pad "" np_thru_hole circle
+      (at 0 0 0)
+      (size 2.2 2.2)
+      (drill 2.2)
+      (layers "*.Cu" "*.Mask")
+    )
+  )
+  
   (gr_line (start 87.5 95) (end 123.5 95) (layer Edge.Cuts) (stroke (width 0.15) (type default)))
 (gr_line (start 87.5 95) (end 87.5 20) (layer Edge.Cuts) (stroke (width 0.15) (type default)))
 (gr_line (start 87.5 20) (end 123.5 20) (layer Edge.Cuts) (stroke (width 0.15) (type default)))

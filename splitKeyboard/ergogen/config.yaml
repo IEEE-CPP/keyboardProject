@@ -5,10 +5,16 @@ units:
   # Padding Variables
   px: kx + 7
   py: ky + 7
+  # 8 padding
+  ppx: kx + 8
+  ppy: ky + 8
   # --- Microcontroller pad params
   mcu_w: 40 # pad width
   mcu_h: 80 # pad height
   mcu_dx: px * .85 # how far to shove the pad to the right from inner_home
+  #M2
+  screwSize: 1.5
+  standoffSize: 2.5
 
 points:
   zones:
@@ -110,6 +116,121 @@ outlines:
     - name: right_raw
     - operation: subtract
       name: keys
+  left_xl:
+    - name: left_xl
+    - what: outline
+      name: left_raw
+      expand: 2
+      fillet: 2
+  right_xl:
+    - name: right_xl
+    - what: outline
+      name: right_raw
+      expand: 2
+  left_mounting:
+    - what: circle
+      radius: screwSize
+      where:
+        ref: [main_outer_num]
+        shift: [-8, 8]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: [main_outer_bottom]
+        shift: [-8, -8]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: [main_inner_bottom]
+        shift: [22, -13]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: [main_inner_bottom]
+        shift: [22, 13]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: [main_inner_bottom]
+        shift: [22, 38]
+  right_mounting:
+    - what: circle
+      radius: screwSize
+      where:
+        ref: [mirror_main_outer_num]
+        shift: [-8, 8]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: [mirror_main_outer_bottom]
+        shift: [-8, -8]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: [mirror_main_inner_bottom]
+        shift: [22, -13]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: [mirror_main_inner_bottom]
+        shift: [22, 13]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: [mirror_main_inner_bottom]
+        shift: [22, 38]
+  left_standoff:
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: [main_outer_num]
+        shift: [-8, 8]
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: [main_outer_bottom]
+        shift: [-8, -8]
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: [main_inner_bottom]
+        shift: [22, -13]
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: [main_inner_bottom]
+        shift: [22, 13]
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: [main_inner_bottom]
+        shift: [22, 38]
+  right_standoff:
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: [mirror_main_outer_num]
+        shift: [-8, 8]
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: [mirror_main_outer_bottom]
+        shift: [-8, -8]
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: [mirror_main_inner_bottom]
+        shift: [22, -13]
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: [mirror_main_inner_bottom]
+        shift: [22, 13]
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: [mirror_main_inner_bottom]
+        shift: [22, 38]
 
 pcbs:
   left_board:
@@ -198,6 +319,31 @@ pcbs:
           ref: main_inner_top
           shift: [mcu_dx+12.5, 3]
           rotate: 90
+      hole_top_left:
+        what: mounting_hole_npth
+        where:
+          ref: main_outer_num
+          shift: [-8, 8]
+      hole_bottom_left:
+        what: mounting_hole_npth
+        where:
+          ref: main_outer_bottom
+          shift: [-8, -8]
+      hole_bottom_right:
+        what: mounting_hole_npth
+        where:
+          ref: main_inner_bottom
+          shift: [22, -13]
+      hole_middle_right:
+        what: mounting_hole_npth
+        where:
+          ref: main_inner_bottom
+          shift: [22, 13]
+      hole_top_right:
+        what: mounting_hole_npth
+        where:
+          ref: main_inner_bottom
+          shift: [21, 38]
   right_board:
     template: kicad8
     outlines:
@@ -284,3 +430,107 @@ pcbs:
           ref: mirror_main_inner_top
           shift: [mcu_dx+16.5, 3]
           rotate: 90
+
+      hole_top_left:
+        what: mounting_hole_npth
+        where:
+          ref: mirror_main_outer_num
+          shift: [-8, 8]
+      hole_bottom_left:
+        what: mounting_hole_npth
+        where:
+          ref: mirror_main_outer_bottom
+          shift: [-8, -8]
+      hole_bottom_right:
+        what: mounting_hole_npth
+        where:
+          ref: mirror_main_inner_bottom
+          shift: [22, -13]
+      hole_middle_right:
+        what: mounting_hole_npth
+        where:
+          ref: mirror_main_inner_bottom
+          shift: [22, 13]
+      hole_top_right:
+        what: mounting_hole_npth
+        where:
+          ref: mirror_main_inner_bottom
+          shift: [21, 38]
+
+cases:
+  left_bottom:
+    - name: left_raw
+      extrude: 1
+  xl_left_bottom:
+    - name: left_xl
+      extrude: 1
+  _left_outer_wall:
+    - name: left_xl
+      extrude: 4
+  _left_inner_wall:
+    - name: left_raw
+      extrude: 4
+  _left_holes:
+    - name: left_mounting
+      extrude: 4
+  _left_standoffs:
+    - name: left_standoff
+      extrude: 4
+  left_wall:
+    - what: case
+      name: _left_outer_wall
+      operation: add
+    - what: case
+      name: _left_inner_wall
+      operation: subtract
+  left_case:
+    - what: case
+      name: xl_left_bottom
+      operation: add
+    - what: case
+      name: _left_standoffs
+      operation: add
+    - what: case
+      name: _left_holes
+      operation: subtract
+    - what: case
+      name: left_wall
+      operation: add
+  right_bottom:
+    - name: right_raw
+      extrude: 1
+  xl_right_bottom:
+    - name: right_xl
+      extrude: 1
+  _right_outer_wall:
+    - name: right_xl
+      extrude: 4
+  _right_inner_wall:
+    - name: right_raw
+      extrude: 4
+  _right_holes:
+    - name: right_mounting
+      extrude: 4
+  _right_standoffs:
+    - name: right_standoff
+      extrude: 4
+  right_wall:
+    - what: case
+      name: _right_outer_wall
+      operation: add
+    - what: case
+      name: _right_inner_wall
+      operation: subtract
+  right_case:
+    - what: case
+      name: xl_right_bottom
+      operation: add
+    - what: case
+      name: _right_standoffs
+      operation: add
+    - what: case
+      name: _right_holes
+      operation: subtract
+    - what: case
+      name: right_wall
+      operation: add
