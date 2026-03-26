@@ -113,6 +113,7 @@ outlines:
 
 pcbs:
   left_board:
+    template: kicad8
     outlines:
       - outline: left_raw
     footprints:
@@ -136,7 +137,7 @@ pcbs:
       promicro:
         what: promicro
         params:
-          orientation: "down"
+          orientation: "up"
         where:
           ref: main_inner_home
           shift: [mcu_dx, 20.5]
@@ -151,7 +152,7 @@ pcbs:
           GND: GND
         where:
           ref: main_inner_top
-          shift: [mcu_dx+6, -20]
+          shift: [mcu_dx+6, -15]
           rotate: -90
       reset:
         what: button
@@ -159,8 +160,8 @@ pcbs:
           from: GND
           to: RST
         where:
-          ref: main_inner_num
-          shift: [mcu_dx, -50]
+          ref: main_inner_top
+          shift: [mcu_dx+14, -12]
           rotate: -90
       trrs:
         what: trrs
@@ -198,6 +199,7 @@ pcbs:
           shift: [mcu_dx+12.5, 3]
           rotate: 90
   right_board:
+    template: kicad8
     outlines:
       - outline: right_raw
     footprints:
@@ -221,7 +223,7 @@ pcbs:
       promicro:
         what: promicro
         params:
-          orientation: "miro"
+          orientation: "up"
         where:
           ref: mirror_main_inner_home
           shift: [mcu_dx, 20.5]
@@ -236,7 +238,7 @@ pcbs:
           GND: GND
         where:
           ref: mirror_main_inner_top
-          shift: [mcu_dx+6, -20]
+          shift: [mcu_dx+6, -18]
           rotate: -90
       reset:
         what: button
@@ -244,8 +246,8 @@ pcbs:
           from: GND
           to: RST
         where:
-          ref: mirror_main_inner_num
-          shift: [mcu_dx, -50]
+          ref: mirror_main_inner_top
+          shift: [mcu_dx+14, -12]
           rotate: -90
       trrs:
         what: trrs
