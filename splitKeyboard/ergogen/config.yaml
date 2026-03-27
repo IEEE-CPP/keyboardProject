@@ -510,11 +510,11 @@ cases:
 
   _left_outer_wall:
     - name: left_xl
-      extrude: 4
+      extrude: 5.6
 
   _left_inner_wall:
     - name: left_raw
-      extrude: 4
+      extrude: 5.6
 
   _left_holes:
     - name: left_mounting
@@ -556,11 +556,11 @@ cases:
 
   _right_outer_wall:
     - name: right_xl
-      extrude: 4
+      extrude: 5.6
 
   _right_inner_wall:
     - name: right_raw
-      extrude: 4
+      extrude: 5.6
 
   _right_holes:
     - name: right_mounting
