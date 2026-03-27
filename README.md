@@ -22,10 +22,31 @@ A custom split ergonomic keyboard designed with Ergogen and KiCad.
 
 ```
 splitKeyboard/
-├── ergogen.yaml       # Ergogen configuration (layout, PCB definitions)
-├── left_board.kicad_pcb   # Left half PCB design
-├── right_board.kicad_pcb  # Right half PCB design
-└── splitHalves.kicad_pro  # KiCad project file
+├── ergogen/
+│   ├── config.yaml    # Ergogen configuration (layout, PCB definitions)
+│   └── footprints/    # Custom footprint definitions
+└── kicad/
+    ├── left_board.kicad_pcb   # Left half PCB design
+    └── right_board.kicad_pcb  # Right half PCB design
+```
+
+## Development Setup
+
+### Manual (recommended)
+
+Install ergogen from https://ergogen.xyz/install/, then generate PCBs:
+
+```bash
+ergogen splitKeyboard/ergogen/ --output build/
+```
+
+### Nix (optional)
+
+For users with Nix installed:
+
+```bash
+nix develop    # provides kicad + ergogen
+generate       # shorthand: runs ergogen and moves output to kicad/
 ```
 
 ## Design Details
@@ -66,10 +87,7 @@ splitKeyboard/
 
 ## Building
 
-1. Generate PCB files:
-   ```bash
-   ergogen splitKeyboard/ergogen.yaml --output build/
-   ```
+1. Generate PCB files (see Development Setup above)
 
 2. Open `build/pcbs/` in KiCad to generate Gerbers
 
