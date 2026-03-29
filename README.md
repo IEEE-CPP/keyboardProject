@@ -17,6 +17,7 @@ A custom split ergonomic keyboard designed with Ergogen and KiCad.
 - TRRS jack for inter-board communication
 - ESD protection on TRRS data lines
 - Reset button
+- 3D printable case files (STL)
 
 ## Files
 
@@ -24,7 +25,10 @@ A custom split ergonomic keyboard designed with Ergogen and KiCad.
 splitKeyboard/
 ├── ergogen/
 │   ├── config.yaml    # Ergogen configuration (layout, PCB definitions)
-│   └── footprints/    # Custom footprint definitions
+│   ├── footprints/    # Custom footprint definitions
+│   └── output/
+│       ├── cases/    # 3D printable case files (STL)
+│       └── outlines/ # DXF files for CNC cutting
 └── kicad/
     ├── left_board.kicad_pcb   # Left half PCB design
     └── right_board.kicad_pcb  # Right half PCB design
@@ -46,7 +50,7 @@ For users with Nix installed:
 
 ```bash
 nix develop    # provides kicad + ergogen
-generate       # shorthand: runs ergogen and moves output to kicad/
+generate       # runs ergogen (PCB + cases) and organizes output
 ```
 
 ## Design Details
@@ -60,25 +64,25 @@ generate       # shorthand: runs ergogen and moves output to kicad/
 
 ### Pin Mapping
 
-| Column | Pin  |
-|--------|------|
-| outer  | P21  |
-| pinky  | P20  |
-| ring   | P19  |
-| middle | P18  |
-| index  | P15  |
-| inner  | P14  |
-| thumb  | P16  |
-| space  | P10  |
-| extra  | P9   |
+| Column | Pin |
+| ------ | --- |
+| outer  | P21 |
+| pinky  | P20 |
+| ring   | P19 |
+| middle | P18 |
+| index  | P15 |
+| inner  | P14 |
+| thumb  | P16 |
+| space  | P10 |
+| extra  | P9  |
 
-| Row    | Pin  |
-|--------|------|
-| mod    | P8   |
-| bottom | P7   |
-| home   | P6   |
-| top    | P5   |
-| num    | P4   |
+| Row    | Pin |
+| ------ | --- |
+| mod    | P8  |
+| bottom | P7  |
+| home   | P6  |
+| top    | P5  |
+| num    | P4  |
 
 ### OLED
 
@@ -89,7 +93,7 @@ generate       # shorthand: runs ergogen and moves output to kicad/
 
 1. Generate PCB files (see Development Setup above)
 
-2. Open `build/pcbs/` in KiCad to generate Gerbers
+2. Open `splitKeyboard/kicad/` in KiCad to generate Gerbers
 
 3. Order PCBs from your preferred manufacturer
 
@@ -109,12 +113,6 @@ This repository only contains the hardware design. For firmware, use:
 
 - **QMK**: https://github.com/qmk/qmk_firmware
 - **ZMK**: https://github.com/zmkfirmware/zmk
-
-### QMK Keymap Example
-
-Define your matrix as:
-- ROWS: 5
-- COLS: 6 (or adjust based on your layout)
 
 ## License
 
